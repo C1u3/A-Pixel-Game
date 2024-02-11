@@ -1,5 +1,6 @@
 import { gridCells } from "./src/helpers/grid.js";
 import { Hero } from "./src/objects/Hero/Hero.js";
+import { Camera } from "./src/Camera.js";
 import { GameLoop } from "./src/GameLoop.js";
 import { GameObject } from "./src/GameObject.js";
 import { Input } from "./src/Input.js";
@@ -21,7 +22,6 @@ const skySprite = new Sprite({
   resource: resources.images.sky,
   frameSize: new Vector2(320, 180),
 });
-mainScene.addChild(skySprite);
 
 const groundSprite = new Sprite({
   resource: resources.images.ground,
@@ -32,6 +32,9 @@ mainScene.addChild(groundSprite);
 const hero = new Hero(gridCells(6), gridCells(5));
 mainScene.addChild(hero);
 
+const camera = new Camera();
+mainScene.addChild(camera);
+
 // Adding input class to scene
 mainScene.input = new Input();
 
@@ -40,7 +43,19 @@ const update = (delta) => {
   mainScene.stepEntry(delta, mainScene)
 }
 const draw = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  skySprite.drawImage(ctx, 0, 0);
+
+  ctx.save();
+
+  // Offset by camera position
+  ctx.translate(camera.position.x, camera.position.y);
+
+  // Draw objects
   mainScene.draw(ctx, 0, 0);
+
+  ctx.restore();
 }
 
 // Starting the game

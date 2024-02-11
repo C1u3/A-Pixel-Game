@@ -6,6 +6,7 @@ import {
   WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT 
 } from "./heroAnimations.js";
 import { Animations } from "../../Animations.js";
+import { events } from "../../Event.js"
 import { FrameIndexPattern } from "../../FrameIndexPattern.js";
 import { GameObject } from "../../GameObject.js";
 import { UP, DOWN, LEFT, RIGHT } from "../../Input.js";
@@ -53,6 +54,15 @@ export class Hero extends GameObject {
     const hasArrived = distance <= 1;
 
     if (hasArrived) this.tryMove(root);
+
+    this.tryEmitPosition();
+  }
+
+  tryEmitPosition() {
+    if (this.lastX === this.position.x && this.lastY === this.position.y) return;
+    this.lastX = this.position.x;
+    this.lastY = this.position.y;
+    events.emit("HERO_POSITION", this.position);
   }
 
   tryMove(root) {

@@ -1,5 +1,5 @@
 html, body {
-  background: rosybrown;
+  background: darkslategrey;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -8,7 +8,6 @@ html, body {
 
 canvas {
   width: 70%;
-  background: sandybrown;
   padding: 0;
   margin: auto;
   display: block;
