@@ -1,7 +1,15 @@
 import { isSpaceFree } from "../../helpers/grid.js";
+import { moveTowards } from "../../helpers/moveTowards.js";
 import { walls } from "../../levels/level1.js";
+import { 
+  STAND_UP, STAND_DOWN, STAND_LEFT, STAND_RIGHT, 
+  WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT 
+} from "./heroAnimations.js";
+import { Animations } from "../../Animations.js";
+import { FrameIndexPattern } from "../../FrameIndexPattern.js";
 import { GameObject } from "../../GameObject.js";
 import { UP, DOWN, LEFT, RIGHT } from "../../Input.js";
+import { resources } from "../../Resource.js"
 import { Sprite } from "../../Sprite.js";
 import { Vector2 } from "../../Vector2.js";
 
@@ -32,7 +40,7 @@ export class Hero extends GameObject {
         walkDown: new FrameIndexPattern(WALK_DOWN),
         walkLeft: new FrameIndexPattern(WALK_LEFT),
         walkRight: new FrameIndexPattern(WALK_RIGHT),
-      })
+      }),
     });
     this.addChild(this.body);
     
